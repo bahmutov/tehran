@@ -1,3 +1,6 @@
+importScripts('deps.js');
+var instrumenter = new Instrumenter();
+
 /* global self, Response */
 var myName = 'service-tehran';
 console.log(myName, 'startup');
@@ -36,10 +39,12 @@ self.addEventListener('fetch', function (event) {
         .then(function (response) {
           // response has possible text / json / blob as promises
           return response.text().then(function (src) {
-            console.log('original source');
-            console.log(src);
+            // console.log('original source');
+            // console.log(src);
             // src - original source code
-            var transformedSource = 'console.log("hi there, from ServiceWorker!");';
+            // var transformedSource = 'console.log("hi there, from ServiceWorker!");';
+            var url = new URL(event.request.url);
+            var transformedSource = instrumenter.instrumentSync(src, url.pathname);
             // construct new response with changed JavaScript source
             return javascriptResponse(transformedSource);
           });

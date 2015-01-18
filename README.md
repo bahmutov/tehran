@@ -10,6 +10,14 @@ country famous for its carpets ;)
 
 [istanbul]: https://www.npmjs.com/package/istanbul
 
+## Related
+
+* [was-tested][was-tested] - CLI code coverage proxy.
+* [untested][untested] - orders unit tests based on changes overlapping with code coverage.
+
+[was-tested]: https://github.com/bahmutov/was-tested
+[untested]: https://github.com/bahmutov/untested
+
 ### Small print
 
 Author: Gleb Bahmutov &copy; 2015

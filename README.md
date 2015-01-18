@@ -5,7 +5,7 @@
 **Why is this utility called Tehran?**
 
 The best JavaScript code coverage library is called [istanbul][istanbul], and it is
-named after a city in the country famous for its rugs. Tehran is the capiral of another
+named after a city in the country famous for its rugs. Tehran is the capital of another
 country famous for its carpets ;)
 
 [istanbul]: https://www.npmjs.com/package/istanbul

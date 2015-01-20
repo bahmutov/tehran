@@ -18,9 +18,33 @@
   }
 
   var scriptFolder = getCurrentScriptFolder();
+  console.assert(scriptFolder, 'missing current script folder');
+
+  function namedNodeMapToObject(map) {
+    var result = {};
+    Array.prototype.forEach.call(map, function (attr) {
+      result[attr.name] = attr.value;
+    });
+    return result;
+  }
+
+  function getScriptAttributes(name) {
+    name = name || 'tehran';
+    var scriptEls = document.getElementsByTagName('script');
+    var found;
+    Array.prototype.some.call(scriptEls, function (script) {
+      if (script.attributes.name && script.attributes.name.value === name) {
+        found = namedNodeMapToObject(script.attributes);
+        return true;
+      }
+    });
+    return found;
+  }
 
   function installedTehran() {
     console.log('installed code coverage interceptor Tehran');
+    var options = getScriptAttributes('tehran');
+    console.log('script attributes', options);
   }
 
   function errorInstallingTehran() {

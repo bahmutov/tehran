@@ -24,6 +24,11 @@
     console.log('installed code coverage interceptor Tehran');
     var options = scriptAttributes('tehran');
     console.log('script attributes', options);
+
+    navigator.serviceWorker.controller.postMessage({
+      cmd: 'options',
+      options: options
+    });
   }
 
   function errorInstallingTehran() {

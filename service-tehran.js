@@ -26,8 +26,24 @@ function javascriptResponse(src) {
   return new Response(src, responseOptions);
 }
 
+var options = {
+  instrument: /\.js$/
+};
+
+function setOptions(opts) {
+  opts = opts || {};
+  if (opts.instrument) {
+    if (typeof opts.instrument === 'string') {
+      options.instrument = new RegExp(opts.instrument);
+    }
+  }
+
+  // localStorage.setItem(myName + '.options', opts);
+  // TODO store options for NEXT time
+}
+
 function shouldInstrument(url) {
-  return /foo\.js$/.test(url);
+  return options.instrument.test(url);
 }
 
 self.addEventListener('fetch', function (event) {
@@ -57,20 +73,12 @@ self.addEventListener('fetch', function (event) {
 
 // use window.navigator.serviceWorker.controller.postMessage('hi')
 // to communicate with this service worker
-/*
 self.onmessage = function onMessage(event) {
   console.log('message to service worker', event.data);
 
-  if (event.data === 'clear') {
-    mocks = {};
-    return;
-  }
-
-  if (event.data.url) {
-    console.log('registering mock response for url', event.data.url);
-
-    mocks = mocks || {};
-    mocks[event.data.url] = event.data;
+  switch (event.data.cmd) {
+    case 'options':
+      setOptions(event.data.options);
+    break;
   }
 };
-*/
